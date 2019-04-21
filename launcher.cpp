@@ -27,16 +27,16 @@ int main() {
     perror("fork error");
     return 1;
   }else if(child == 0){ // in child process                                                                                                                                                         
-    cout << "Child" << endl;
+    //cout << "Child" << endl;                                                                                                                                                                      
     if(argument.at(0) == '.' && argument.at(1) == '/'){ // if the program begins with ./ -- is a local file                                                                                         
-      execvp(argument.c_str(), argument.c_str());
+      execlp(argument.c_str(), argument.c_str(), (char *) NULL);
     }else{ // is a command                                                                                                                                                                          
-      execv(argument.c_str(), argument.c_str());
+      execlp(argument.c_str(), argument.c_str(), (char *) NULL);
     } // if                                                                                                                                                                                         
-  }else{
-    cout << "Parent" << endl;
-    waitpid(child, &status, WNOHANG | WUNTRACED | WCONTINUED);
+  }else{ // in parent                                                                                                                                                                               
+    //cout << "Parent" << endl;                                                                                                                                                                     
     cout << "Waiting on child: " << getpid() << endl;
+    wait(&status);
     if(WIFSIGNALED(status)){ // if terminated by signal                                                                                                                                             
       cout << "Termination by signal" << endl;
       int signalStatus = WTERMSIG(status);
@@ -47,8 +47,5 @@ int main() {
       cout << "exit code: " << exitStatus << endl;
     } // if                                                                                                                                                                                         
   }  // if                                                                                                                                                                                          
-
   return 0;
-} // main                                                                                                                                                                                           
-
-
+} // main                                                             
