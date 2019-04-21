@@ -7,11 +7,32 @@
 #include <string.h>
 #include <dirent.h>
 #include <string>
+#include <sys/wait.h>
+
 using namespace std;
 
-int main(const int argc, const char * array[]) {
+int main() {
 
+string argument;
+cin >> argument;
 
+pid_t child = fork();
+int status;
+
+if(child < 0)
+  {
+    perror("fork error");
+  }
+else if(child == 0)//in child process
+{
+    cout << "Child" << endl;
+}
+
+else
+{
+cout << "Parent" << endl;
+waitpid(child, &status, WNOHANG | WUNTRACED | WCONTINUED);
+}
 
 
 return 0;
