@@ -10,44 +10,45 @@
 #include <sys/wait.h>
 #include <signal.h>
 
+/**                                                                                                                                                                                                 
+ * This launches a program (either from a command or a file path) from standard input and tells the user whether the program terminated by exit or signal                                           
+ * @returns 0 on success, nonzero on error                                                                                                                                                          
+ */
 using namespace std;
 
 int main() {
 
-string argument;
-cin >> argument;
+  string argument;
+  cin >> argument;
 
-pid_t child = fork();
-int status;
-
-if(child < 0)
-  {
+  pid_t child = fork();
+  int status;
+  if(child < 0){ // if error                                                                                                                                                                        
     perror("fork error");
-  }
-else if(child == 0)//in child process
-{
+    return 1;
+  }else if(child == 0){ // in child process                                                                                                                                                         
     cout << "Child" << endl;
-}
-
-else
-{
-cout << "Parent" << endl;
-waitpid(child, &status, WNOHANG | WUNTRACED | WCONTINUED);
-cout << "Waiting on child: " << getpid() << endl;
-if(WIFSIGNALED(status))
-  {
-     cout << "Termination by signal" << endl; 
-      int signalStatus = WTERMSIG(status); 
-       cout << "signal: " << signalStatus << " -- " << strsignal(signalStatus) << endl;
-  }//if
-if (WIFEXITED(status)) 
-   { 
-      cout << "Termination by exit" << endl; 
-      int exitStatus = WEXITSTATUS(status);  
+    if(argument.at(0) == '.' && argument.at(1) == '/'){ // if the program begins with ./ -- is a local file                                                                                         
+      execvp(argument.c_str(), argument.c_str());
+    }else{ // is a command                                                                                                                                                                          
+      execv(argument.c_str(), argument.c_str());
+    } // if                                                                                                                                                                                         
+  }else{
+    cout << "Parent" << endl;
+    waitpid(child, &status, WNOHANG | WUNTRACED | WCONTINUED);
+    cout << "Waiting on child: " << getpid() << endl;
+    if(WIFSIGNALED(status)){ // if terminated by signal                                                                                                                                             
+      cout << "Termination by signal" << endl;
+      int signalStatus = WTERMSIG(status);
+      cout << "signal: " << signalStatus << " -- " << strsignal(signalStatus) << endl;
+    }else if (WIFEXITED(status)){ // if terminated by exit                                                                                                                                          
+      cout << "Termination by exit" << endl;
+      int exitStatus = WEXITSTATUS(status);
       cout << "exit code: " << exitStatus << endl;
-   }//if
-}//else
+    } // if                                                                                                                                                                                         
+  }  // if                                                                                                                                                                                          
+
+  return 0;
+} // main                                                                                                                                                                                           
 
 
-return 0;
-}
