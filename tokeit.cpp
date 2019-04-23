@@ -20,9 +20,9 @@ int main(){
     line[i] = new char[10];                                                                                                                                                                         
     } // for */
   char* start;
-  cin >> line;
+  cin.getline(line, 512);
+  cout << line << endl;
   start = strtok(line," ");
-  numArgs++;
   while(start != NULL){
     cout << start << endl;
     numArgs++;
@@ -35,5 +35,4 @@ int main(){
 
 
 
-} // main                                                                                                                                                                                           
-
+} // main                     
