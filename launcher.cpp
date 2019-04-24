@@ -17,24 +17,20 @@
 using namespace std;
 
 int main() {
-
   string argument;
   cin >> argument;
-
   pid_t child = fork();
   int status;
   if(child < 0){ // if error                                                                                                                                                                        
     perror("fork error");
     return 1;
-  }else if(child == 0){ // in child process                                                                                                                                                         
-    //cout << "Child" << endl;                                                                                                                                                                      
+  }else if(child == 0){ // in child process                                                                                                                                                                                                                                                                                                                             
     if(argument.at(0) == '.' && argument.at(1) == '/'){ // if the program begins with ./ -- is a local file                                                                                         
       execlp(argument.c_str(), argument.c_str(), (char *) NULL);
     }else{ // is a command                                                                                                                                                                          
       execlp(argument.c_str(), argument.c_str(), (char *) NULL);
     } // if                                                                                                                                                                                         
-  }else{ // in parent                                                                                                                                                                               
-    //cout << "Parent" << endl;                                                                                                                                                                     
+  }else{ // in parent                                                                                                                                                                                                                                                                                                                                             
     cout << "Waiting on child: " << getpid() << endl;
     wait(&status);
     if(WIFSIGNALED(status)){ // if terminated by signal                                                                                                                                             
