@@ -11,36 +11,36 @@
 using namespace std;
 
 /**                                                                                                                                                                                                 
- *                                                                                                                                                                                                  
+ * This tokenizes user input in a 2d array. Then, it executes using the input.                                                                                                                      
+ * @return 0 on success, nonzero on error                                                                                                                                                           
  */
 int main(){
-int numArgs = 0;
+  int numArgs = 0;
   char line[512];
+  char* tokens[10];
+  /*  for(int i = 0; i < 10; i++){ // creating rows                                                                                                                                                 
+    tokens[i] = new char[10];                                                                                                                                                                       
+    } // for                                                                                                                                                                                        
+  */
   char* start;
-  int i = 1;
   cin.getline(line, 512);
-  char* argv[11];
-  start = strtok(line," ");
-  char* cmd = start;
-  argv[0] = cmd; 
-  while(start != NULL){
-   // printf("%s\n", start);
+  cout << line << endl;
+  start = strtok(line, " ");
+  tokens[numArgs] = start;
+  while(start != nullptr){
+    tokens[numArgs] = start;
     numArgs++;
-    start = strtok(NULL," ");
-    argv[i] = start;
-    i++;
-  } // while  
-   argv[i+1] = (char*) NULL;
-                                                                                                                                                                                     
+    start = strtok(nullptr, " ");
+  } // while                                                                                                                                                                                        
 
   cout << "done parsing" << endl;
   cout << "num args: " << numArgs << endl;
-  for (int j = 0; j < numArgs; j++)
-  {
-   cout << argv[j] << endl;
-  }
-  
-  execvp(cmd, argv);
+  for(int i = 0; i < numArgs; i++){
+    cout << tokens[i] << endl;
+  } // for                                                                                                                                                                                          
 
+  execvp(tokens[0], tokens);
+
+  return 0;
 } // main                                                                                                                                                                                           
 
