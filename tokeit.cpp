@@ -18,10 +18,6 @@ int main(){
   int numArgs = 0;
   char line[512];
   char* tokens[10];
-  /*  for(int i = 0; i < 10; i++){ // creating rows                                                                                                                                                 
-    tokens[i] = new char[10];                                                                                                                                                                       
-    } // for                                                                                                                                                                                        
-  */
   char* start;
   cin.getline(line, 512);
   cout << line << endl;
@@ -38,9 +34,7 @@ int main(){
   for(int i = 0; i < numArgs; i++){
     cout << tokens[i] << endl;
   } // for                                                                                                                                                                                          
-
   execvp(tokens[0], tokens);
-
   return 0;
 } // main                                                                                                                                                                                           
 
