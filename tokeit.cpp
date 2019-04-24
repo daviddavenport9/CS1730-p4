@@ -16,21 +16,21 @@ using namespace std;
  */
 int main(){
 int numArgs = 0;
-  char line[512];
+  char line[512];//array to store input
   char* start;
-  int i = 1;
+  int i = 1;//variable to account for argv indices
   cin.getline(line, 512);
-  char* argv[11];
-  start = strtok(line," ");
+  char* argv[11];//array to store each token
+  start = strtok(line," ");//gets the first token
   char* cmd = start;
-  argv[0] = cmd; 
+  argv[0] = cmd; //sets the first index in the array to the command
   while(start != NULL){
     numArgs++;
-    start = strtok(NULL," ");
-    argv[i] = start;
+    start = strtok(NULL," ");//gets each subsequent token
+    argv[i] = start;//populates the arg array with the rest of the arguments
     i++;
   } // while  
-  argv[i+1] = (char*) NULL;                                                                                                                                                                                   
+  argv[i+1] = (char*) NULL;//manually terminates the arguments                                                                                                                                                                                   
   cout << "done parsing" << endl;
   cout << "num args: " << numArgs << endl;
   for (int j = 0; j < numArgs; j++)
