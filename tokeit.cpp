@@ -36,7 +36,7 @@ int numArgs = 0;
   for (int j = 0; j < numArgs; j++)
   {
    cout << argv[j] << endl;
-  }
+  } // for
   execvp(cmd, argv);
   perror("error exec'ing");
   return 0;
