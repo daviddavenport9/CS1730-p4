@@ -14,25 +14,35 @@ using namespace std;
  *                                                                                                                                                                                                  
  */
 int main(){
-  int numArgs = 0;
+int numArgs = 0;
   char line[512];
-  /*  for(int i = 0; i < 10; i++){ // creating rows                                                                                                                                                 
-    line[i] = new char[10];                                                                                                                                                                         
-    } // for */
   char* start;
+  int i = 1;
   cin.getline(line, 512);
-  cout << line << endl;
+  char* argv[11];
   start = strtok(line," ");
+  char* cmd = start;
+  argv[0] = cmd; 
   while(start != NULL){
-    cout << start << endl;
+   // printf("%s\n", start);
     numArgs++;
     start = strtok(NULL," ");
-  } // while                                                                                                                                                                                        
+    argv[i] = start;
+    i++;
+  } // while  
+   argv[i+1] = (char*) NULL;
+                                                                                                                                                                                     
 
   cout << "done parsing" << endl;
   cout << "num args: " << numArgs << endl;
+  cout << cmd << endl;
+  for (int j = 0; j < numArgs; j++)
+  {
+   cout << argv[j] << endl;
+  }
+  
+  execvp(cmd, argv);
+    if (
 
+} // main                                                                                                                                                                                           
 
-
-
-} // main                     
