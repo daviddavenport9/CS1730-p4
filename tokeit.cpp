@@ -15,7 +15,7 @@ using namespace std;
  * @return 0 on success, nonzero on error                                                                                                                                                                                                  
  */
 int main(){
-int numArgs = 0;
+  int numArgs = 0;
   char line[512];//array to store input
   char* start;
   int i = 1;//variable to account for argv indices
