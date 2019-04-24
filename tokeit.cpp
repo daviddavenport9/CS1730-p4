@@ -10,34 +10,31 @@
 
 using namespace std;
 
-/**                                                                                                                                                                                                 
+/**                                                                                                                                                                                                
  * This tokenizes user input in a 2d array. Then, it executes using the input.                                                                                                                      
- * @return 0 on success, nonzero on error                                                                                                                                                                                                  
+ * @return 0 if exec doesn't work                                                                                                                                                                   
  */
 int main(){
   int numArgs = 0;
-  char line[512];//array to store input
+  char line[512]; //array to store input                                                                                                                                                            
   char* start;
-  int i = 1;//variable to account for argv indices
   cin.getline(line, 512);
-  char* argv[11];//array to store each token
-  start = strtok(line," ");//gets the first token
+  char* argv[11]; //array to store each token                                                                                                                                                       
+  start = strtok(line," "); //gets the first token                                                                                                                                                  
   char* cmd = start;
-  argv[0] = cmd; //sets the first index in the array to the command
+  argv[numArgs] = cmd; //sets the first index in the array to the command                                                                                                                           
   while(start != NULL){
     numArgs++;
-    start = strtok(NULL," ");//gets each subsequent token
-    argv[i] = start;//populates the arg array with the rest of the arguments
-    i++;
-  } // while  
-  argv[i+1] = (char*) NULL;//manually terminates the arguments                                                                                                                                                                                   
+    start = strtok(NULL," "); //gets each subsequent token                                                                                                                                          
+    argv[numArgs] = start; //populates the arg array with the rest of the arguments                                                                                                                 
+  } // while                                                                                                                                                                                        
+  argv[numArgs+1] = (char*) NULL; //manually terminates the arguments                                                                                                                               
   cout << "done parsing" << endl;
   cout << "num args: " << numArgs << endl;
-  for (int j = 0; j < numArgs; j++)
-  {
+  for (int j = 0; j < numArgs; j++){
    cout << argv[j] << endl;
-  } // for
+  } // for                                                                                                                                                                                          
   execvp(cmd, argv);
   perror("error exec'ing");
   return 0;
-} // main                                                                                                                                             
+} // main                                   
