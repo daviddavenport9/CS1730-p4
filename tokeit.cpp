@@ -35,14 +35,12 @@ int numArgs = 0;
 
   cout << "done parsing" << endl;
   cout << "num args: " << numArgs << endl;
-  cout << cmd << endl;
   for (int j = 0; j < numArgs; j++)
   {
    cout << argv[j] << endl;
   }
   
   execvp(cmd, argv);
-    if (
 
 } // main                                                                                                                                                                                           
 
