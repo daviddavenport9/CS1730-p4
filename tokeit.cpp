@@ -41,6 +41,6 @@ int numArgs = 0;
   }
   
   execvp(cmd, argv);
-
-} // main                                                                                                                                                                                           
-
+  perror("error exec'ing");
+  return 0;
+} // main                                                                                                                                             
